@@ -1,0 +1,5 @@
+package repository;
+
+public class MDAOim implements MDAO {
+
+}

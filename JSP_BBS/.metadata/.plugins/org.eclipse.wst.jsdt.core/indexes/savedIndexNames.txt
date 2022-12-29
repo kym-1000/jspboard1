@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+D:\javaee\JSP_BBS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+807666325.index
+3819707233.index
+822544263.index
+1094459150.index
+1397495135.index
+424421783.index

@@ -1,0 +1,45 @@
+package service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.memberController;
+import domain.MemberVO;
+import repository.MDAO;
+import repository.MDAOim;
+
+public class serviceIm implements service {
+	
+	private static Logger log = LoggerFactory.getLogger(memberController.class);
+	
+	private MDAO mdao; // 다오 인터페이스 생성 
+	
+	public serviceIm() {
+		mdao = new MDAOim();
+	}
+
+	@Override
+	public int Mregister(MemberVO mvo) {
+		log.info("회원가입 진행 구현 서비스");
+		return mdao.insert(mvo);
+	}
+
+	@Override
+	public MemberVO login(MemberVO mvo) {
+		log.info("로그인 진행 구현 서비스");
+		return mdao.selectOne(mvo);
+	}
+
+	@Override
+	public int lastlogin(String email) {
+		// TODO Auto-generated method stub
+		return mdao.update(email);
+	}
+
+	@Override
+	public int remove(String email) {
+		// TODO Auto-generated method stub
+		return mdao.delete(email);
+	}
+
+}

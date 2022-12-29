@@ -1,0 +1,15 @@
+package dao;
+
+import java.util.List;
+
+import domain.memberVO;
+
+public class BDAOim implements BDAO {
+
+	@Override
+	public List<memberVO> selectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

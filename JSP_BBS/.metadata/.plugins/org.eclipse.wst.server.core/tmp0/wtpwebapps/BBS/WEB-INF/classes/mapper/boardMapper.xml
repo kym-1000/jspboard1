@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+
+<select id="list" resultType="bvo">
+	select * from board;
+</select>
+
+<insert id="add" parameterType="bvo">
+			
+	insert into board(title,writer,content,image_file) values(#{title},#{writer},#{content},#{image_file})
+
+</insert>
+
+<select id="one" parameterType="int"  resultType="bvo"> 
+	select * from board where bindex = #{bindex}
+</select>
+
+ <update id="update" parameterType="bvo" >
+	update board set title=#{title}, content=#{content},image_file = #{image_file} where bindex = #{bindex} 	
+</update>
+
+<delete id="delete" parameterType="int">
+	delete from board where bindex = #{bindex}
+</delete>
+
+<update id="updateCount" parameterType="int">
+	update board set read_count = read_count+1 where bindex = #{bindex}
+</update>
+
+<select id="cnt" resultType="int">
+	select count(bindex) from board;
+</select>
+
+<select id="cnt1" parameterType="String" resultType="int">
+	select count(bindex) from board as a  join bm as b on a.writer = b.email where a.writer = #{email}
+</select>
+
+<select id="pagingList" parameterType="pgvo" resultType="bvo">
+	select bindex, title, writer, regdate, image_file, read_count 
+	from board order by bindex desc limit #{pageStart}, #{qty}
+</select>
+
+<select id="pagingList1" parameterType="pgvo" resultType="bvo">
+	select bindex, title, writer, regdate, image_file, read_count 
+	from board where writer = #{email} order by bindex desc limit #{pageStart}, #{qty}
+</select>
+
+<select id="list1" parameterType="String" resultType="bvo">
+	select a.bindex, a.title, a.writer, a.read_count, b.email from board as a 
+	INNER JOIN bm as b on a.writer = b.email where a.writer = #{email}
+</select>
+
+<select id="img" parameterType="int" resultType="String">
+
+	select image_file from board where bindex = #{bindex}
+
+</select>
+
+
+
+</mapper>  

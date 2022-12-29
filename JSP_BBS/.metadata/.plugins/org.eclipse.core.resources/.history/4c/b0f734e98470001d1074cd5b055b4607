@@ -1,0 +1,13 @@
+package service;
+
+import dao.BDAO;
+import dao.BDAOim;
+
+
+public class Bserviceim implements Bservice {
+	private BDAO bado; // 다오 인터페이스 생성
+	
+	public Bserviceim() {
+		bado = new BDAOim();
+	}
+}

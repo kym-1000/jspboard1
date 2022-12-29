@@ -1,0 +1,88 @@
+package dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import domain.BoardVO;
+import domain.memberVO;
+import orm.DatabaseBuilder;
+
+public class BDAOim implements BDAO {
+	
+private SqlSession sql;
+	
+	private final String BM = "boardMapper."; //멤버의 네임 스페이스
+
+	
+	public BDAOim() {
+		new DatabaseBuilder();
+		sql = DatabaseBuilder.getFactory().openSession();
+	}
+
+	@Override
+	public List<memberVO> selectList() {
+		System.out.println("sql 실행 직전!");
+		return sql.selectList(BM+"list");
+	}
+
+	@Override
+	public int insert(BoardVO bvo) {
+		System.out.println("sql 실행 직전!");
+		int isOk = sql.insert(BM+"add",bvo);
+		if(isOk > 0) {
+			sql.commit(); // 컴밋 실행!
+		}
+		return isOk;
+	}
+
+	@Override
+	public BoardVO selectOne(int bindex) {
+		System.out.println("sql 실행 직전!");
+		return sql.selectOne(BM+"one",bindex);
+	}
+
+	@Override
+	public int update(BoardVO bvo2) {
+		System.out.println("sql 실행 직전!");
+		int isOk = sql.update(BM+"update",bvo2);
+		if(isOk > 0) {
+			sql.commit(); // 컴밋 실행!
+		}
+		return isOk;
+	}
+
+	@Override
+	public int delete(int bindex) {
+		System.out.println("sql 실행 직전!");
+		int isOk = sql.delete(BM+"delete",bindex);
+		if(isOk > 0) {
+			sql.commit(); // 컴밋 실행!
+		}
+		return isOk;
+	}
+
+	@Override
+	public int updateCount(BoardVO bvo) {
+		System.out.println("sql 실행 직전!");
+		int isOk = sql.update(BM+"updateCount",bvo);
+		if(isOk > 0) {
+			sql.commit(); // 컴밋 실행!
+		}
+		return isOk;
+	}
+
+//	@Override
+//	public BoardVO updateCount(BoardVO bvo) {
+//		System.out.println("sql 실행 직전!");
+//		sql.update(BM+"updateCount",bvo);
+//		return sql.selectOne(BM+"one",bvo);
+//		
+//	}
+
+	
+
+	
+	
+
+}

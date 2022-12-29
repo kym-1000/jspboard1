@@ -1,0 +1,11 @@
+INDEX VERSION 1.131
+C:\JSP\JSP_BBS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\474180306.index
+\BBS\src\main\java
+C:\JSP\JSP_BBS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4225918779.index
+\BBS\src\main\java
+D:\javaee\JSP_BBS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\474180306.index
+\BBS\src\main\java
+D:\javaee\JSP_BBS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4225918779.index
+\BBS\src\main\java
+D:\javaee\JSP_BBS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3476620190.index
+\BBS\src\main\java

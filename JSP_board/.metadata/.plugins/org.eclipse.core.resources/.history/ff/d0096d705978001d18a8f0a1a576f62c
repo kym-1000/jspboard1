@@ -1,0 +1,32 @@
+package repository;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.memberController;
+import domain.BoardVO;
+import orm.DatabaseBuilder;
+
+public class BDAOim implements BDAO {
+	
+private static Logger log = LoggerFactory.getLogger(memberController.class);
+	
+	private SqlSession sql;
+	
+	private final String BM = "BoardMapper."; // board 멤버 스페이스
+	
+	public BDAOim() {
+		new DatabaseBuilder();
+		sql = DatabaseBuilder.getFactory().openSession();
+	}
+
+	@Override
+	public int insert(BoardVO bvo) {
+		log.info("회원가입 insert sql 실행직전!");
+		int isOk = sql.insert(MM+"memberinsert",mvo);
+		if(isOk > 0) sql.commit();
+		return isOk;
+	}
+
+}

@@ -1,0 +1,7 @@
+package service;
+
+public class serviceIm implements service {
+	
+	private DAO mdao; // 다오 인터페이스 생성
+
+}

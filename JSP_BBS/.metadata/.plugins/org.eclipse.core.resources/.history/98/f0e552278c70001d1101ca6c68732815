@@ -1,0 +1,125 @@
+package controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import domain.BoardVO;
+import domain.memberVO;
+import service.Bservice;
+import service.Bserviceim;
+import service.service;
+import service.serviceim;
+
+
+@WebServlet("/brd/*")
+public class boardController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private Bservice bvc; // 서비스 인터페이스 생성
+	private RequestDispatcher rdp;   // 경로를 싣고 보내는 기능을 하는 변수 선언 
+	private String destpage = "";   // 경로를 저장할 변수 
+	int isOk;
+	
+    public boardController() {
+    	bvc = new Bserviceim();
+    }
+
+	
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("text/html; charset=UTF-8");
+		
+		String uri = req.getRequestURI();
+		System.out.println(uri);
+		String path = uri.substring(uri.lastIndexOf("/")+1);
+		System.out.println(path);
+		
+		switch (path) {
+		case "rego" :
+			destpage = "/BM/register.jsp";
+			break;
+		case "register" : 
+			try {
+				System.out.println("회원가입 진입1");
+				BoardVO bvo = new BoardVO();
+				bvo.setTitle(req.getParameter("title"));
+				bvo.setWriter(req.getParameter("writer"));
+				bvo.setContent(req.getParameter("content"));
+				isOk = bvc.register(bvo);
+				destpage = "list";
+				if(isOk > 0) {
+					System.out.println("게시글 등록완료");
+				}else {
+					System.out.println("게시글 등록실패");
+				}
+			} catch (Exception e) {
+				System.out.println("등록 예외 발생!");
+				e.printStackTrace();
+			}
+			break;
+
+		case "list":
+			try {
+				System.out.println("게시글 리스트 진입 1");
+				List<memberVO> list = bvc.getlist();
+				req.setAttribute("list", list);
+				destpage ="/BM/list.jsp";
+			} catch (Exception e) {
+				System.out.println("게시판 예외 발생!");
+				e.printStackTrace();
+			}
+			break;
+			
+			
+		case "detail" :
+			try {
+				// JSP에서 보낸 bindex 받기 
+				int bindex =  Integer.parseInt(req.getParameter("bindex"));
+				System.out.println("상세 진입1");
+				BoardVO bvo = bvc.getDetail(bindex);
+				System.out.println("상세 진입4");
+				req.setAttribute("bvo", bvo);
+				destpage = "/BM/detail.jsp";
+			} catch (Exception e) {
+				System.out.println("상세 예외 발생!");
+				e.printStackTrace();
+			}
+			break;
+			
+		case "
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		rdp = req.getRequestDispatcher(destpage);
+		// 주소를 싣고 목적지로 가라!
+		rdp.forward(req, res);
+	}
+
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		service(req, res);
+	}
+
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(req, res);
+	}
+
+}

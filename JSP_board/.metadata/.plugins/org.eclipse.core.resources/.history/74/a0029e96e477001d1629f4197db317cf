@@ -1,0 +1,161 @@
+package controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import domain.MemberVO;
+import service.service;
+import service.serviceIm;
+
+
+@WebServlet("/bm/*")
+public class memberController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private static Logger log = LoggerFactory.getLogger(memberController.class);
+	
+	int isOk;
+	private service svc; // 서비스 인터페이스 생성 
+	private RequestDispatcher rdp; // 경로를 싣고 보내는 기능을 하는 rdp 변수 선언
+	private String destPage = ""; // 경로를 저장할 변수  
+	
+	public memberController() {
+		svc = new serviceIm();     // 서비스 인터페이스를 구현하는 서비스 
+	}
+	
+
+
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("text/html; charset=UTF-8");
+		
+		String uri = req.getRequestURI();
+		log.info(uri);
+		String path = uri.substring(uri.lastIndexOf("/")+1);
+		log.info(path);
+		
+		switch (path) {
+		case "Mregister":
+			try {
+				log.info("회원가입 진입1");
+				MemberVO mvo = new MemberVO();
+				mvo.setEmail(req.getParameter("email"));
+				mvo.setPwd(req.getParameter("pwd"));
+				mvo.setNick(req.getParameter("nick"));
+				isOk = svc.Mregister(mvo);
+				
+				if(isOk > 0 ) {
+					log.info("회원가입 성공!");
+				}else {
+					log.info("회원가입 실패");
+					destPage = "join&login.jsp";
+				}
+				destPage = "/";
+			} catch (Exception e) {
+				log.info("회원가입 예외 발생");
+				e.printStackTrace();
+			}
+			break;
+			
+		case "login" : 
+			
+			try {
+				log.info("로그인 진입1");
+				MemberVO mvo = new MemberVO();
+				mvo.setEmail(req.getParameter("email"));
+				mvo.setPwd(req.getParameter("pwd"));
+				log.info(req.getParameter("pwd"));
+				MemberVO mvo1 = svc.login(mvo);
+				if(mvo1 != null) {
+					log.info("로그인 성공!");
+					HttpSession ses = req.getSession(); 
+					ses.setAttribute("ses", mvo1);
+					ses.setMaxInactiveInterval(10*60);
+				}else {
+					log.info("로그인 실패!");
+					req.setAttribute("msg_login", 0);
+				} 
+				
+				destPage = "/index.jsp";
+				
+			} catch (Exception e) {
+				log.info("로그인 예외 발생");
+				e.printStackTrace();
+			}
+			
+			break;
+			
+		case "logout":
+			try {
+				HttpSession ses = req.getSession();
+				ses.invalidate();
+				isOk = svc.lastlogin(req.getParameter("email"));
+				if(isOk > 0) {
+					log.info("로그아웃완료");
+				}else {
+					log.info("로그아웃실패");
+				}
+				destPage = "/";
+			} catch (Exception e) {
+				log.info("로그아웃 예외 발생");
+				e.printStackTrace();
+			}
+			break;
+			
+		case "remove" : 
+			try {
+				log.info("회원 삭제 진입1");
+				String email = req.getParameter("email");
+				String pwd = req.getParameter("pwd");
+				MemberVO mvo = new MemberVO(email,pwd);
+				isOk = svc.remove(mvo);
+				if(isOk > 0) {
+					log.info("삭제완료");
+					HttpSession ses = req.getSession();
+					ses.invalidate();
+				}else {
+					log.info("삭제실패");
+					req.setAttribute("delete", 0);
+				}
+				destPage = "/";
+			} catch (Exception e) {
+				log.info("회원탈퇴 예외 발생");
+				e.printStackTrace();
+				
+			}
+			
+			break;
+			
+		default:
+			break;
+		}
+		
+		rdp = req.getRequestDispatcher(destPage);
+		rdp.forward(req, res);
+		
+	}
+
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		service(req,res);
+	}
+
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(req, res);
+	}
+
+}

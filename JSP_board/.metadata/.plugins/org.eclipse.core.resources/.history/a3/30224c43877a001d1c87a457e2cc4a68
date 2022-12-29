@@ -1,0 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.getElementById('cmtAddBtn').addEventListener('click',()=>{
+	const cmtText = document.getElementById('cmtText').value;
+	console.log(cmtText)
+})

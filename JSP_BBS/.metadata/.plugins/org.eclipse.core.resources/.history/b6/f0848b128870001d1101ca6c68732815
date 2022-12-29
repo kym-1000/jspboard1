@@ -1,0 +1,39 @@
+package dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import domain.BoardVO;
+import domain.memberVO;
+import orm.DatabaseBuilder;
+
+public class BDAOim implements BDAO {
+	
+private SqlSession sql;
+	
+	private final String BM = "boardMapper."; //멤버의 네임 스페이스
+
+	
+	public BDAOim() {
+		new DatabaseBuilder();
+		sql = DatabaseBuilder.getFactory().openSession();
+	}
+
+	@Override
+	public List<memberVO> selectList() {
+		System.out.println("sql 실행 직전!");
+		return sql.selectList(BM+"list");
+	}
+
+	@Override
+	public int insert(BoardVO bvo) {
+		System.out.println("sql 실행 직전!");
+		int isOk = sql.insert(MM+"add",mvo);
+		if(isOk > 0) {
+			sql.commit(); // 컴밋 실행!
+		}
+		return isOk;
+	}
+
+}

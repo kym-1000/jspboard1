@@ -1,0 +1,19 @@
+package repository;
+
+import domain.MemberVO;
+
+public interface MDAO {
+
+	int insert(MemberVO mvo);
+
+	MemberVO selectOne(MemberVO mvo);
+
+	int updatelogin(String email);
+
+	int delete(MemberVO mvo);
+
+	int update(MemberVO mvo);
+
+
+
+}

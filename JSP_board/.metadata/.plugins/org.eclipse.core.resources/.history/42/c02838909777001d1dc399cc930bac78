@@ -1,0 +1,3 @@
+document.getElementById('delbtn').addEventListener('click',()=>{
+	const del = document.getElementById('delbtn')
+})

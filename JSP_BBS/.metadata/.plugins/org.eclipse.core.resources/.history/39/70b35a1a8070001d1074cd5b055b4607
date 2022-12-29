@@ -1,0 +1,12 @@
+package service;
+
+import dao.DAO;
+import dao.DAOim;
+
+public class Bserviceim implements Bservice {
+	private DAO Bado; // 다오 인터페이스 생성
+	
+	public serviceim() {
+		mado = new DAOim();
+	}
+}

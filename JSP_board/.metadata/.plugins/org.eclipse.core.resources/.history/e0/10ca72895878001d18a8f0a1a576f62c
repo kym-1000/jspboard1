@@ -1,0 +1,30 @@
+package service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.memberController;
+import domain.BoardVO;
+import repository.BDAO;
+import repository.BDAOim;
+
+
+public class BserviceIm implements Bservice {
+	
+	
+
+	private static Logger log = LoggerFactory.getLogger(memberController.class);
+	
+	private BDAO bdao; // 다오 인터페이스 생성 
+	
+	public BserviceIm() {
+		bdao = new BDAOim();
+	}
+
+	@Override
+	public int register(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		return bdao.insert(bvo);
+	}
+
+}

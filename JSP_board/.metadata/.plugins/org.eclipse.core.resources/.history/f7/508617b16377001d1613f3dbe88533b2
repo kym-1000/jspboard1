@@ -1,0 +1,9 @@
+package orm;
+
+public class DatabaseBuilder {
+	
+	private static SqlSessionFactory factory;
+	
+	
+
+}

@@ -1,0 +1,33 @@
+package repository;
+
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import controller.memberController;
+import domain.memberVO;
+import orm.DatabaseBuilder;
+
+public class MDAOim implements MDAO {
+	
+	private static Logger log = LoggerFactory.getLogger(memberController.class);
+	
+	private SqlSession sql;
+	
+	private final String MM = "memberMapper."; // member의 네임 스페이스
+	
+	public MDAOim() {
+		new DatabaseBuilder();
+		sql = DatabaseBuilder.getFactory().openSession();
+	}
+	
+
+	@Override
+	public int insert(memberVO mvo) {
+		log.info("회원가입 insert sql 실행직전!");
+		int isOk = sql.insert(MM+"insert",mvo);
+		if(isOk > 0) sql.commit();
+		return ;
+	}
+
+}

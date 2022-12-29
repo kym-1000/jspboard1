@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.getElementById('cmtAddBtn').addEventListener('click',()=>{
+	const cmtText = document.getElementById('cmtText').value;
+	console.log(cmtText);
+	if(cmtText == null || cmtText == ''){
+		alert('댓글을 입력해주세요.');
+		return false;
+	}else{
+		let cmtData = {
+			bno : bnoval,
+			writer : document.getElementById('cmtWriter').value,
+			content : cmtText
+		};
+	};
+	
+	postCommentToServer(cmtData).then(result => {
+		if(result > 0){
+			alert("댓글 등록 성공");
+			document.getElementById('cmtText').value = "";  // 성공하면 지워라!
+		}
+	})
+	
+	
+})

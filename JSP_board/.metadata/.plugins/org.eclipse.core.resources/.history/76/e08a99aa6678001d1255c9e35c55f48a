@@ -1,0 +1,17 @@
+package repository;
+
+import java.util.List;
+
+import domain.BoardVO;
+
+public interface BDAO {
+
+	int insert(BoardVO bvo);
+
+	List<BoardVO> selectList();
+
+	int selectOne(int bno);
+
+	
+
+}

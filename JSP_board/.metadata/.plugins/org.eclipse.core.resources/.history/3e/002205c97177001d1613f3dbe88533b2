@@ -1,0 +1,11 @@
+package service;
+
+public class serviceIm implements service {
+	
+	private MDAO mdao; // 다오 인터페이스 생성 
+	
+	public serviceIm() {
+		mdao = new MDAOim();
+	}
+
+}

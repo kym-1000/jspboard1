@@ -1,0 +1,97 @@
+async function getCommentListFromServer(bindex) { //서버(컨트롤러)에 리스트를 달라고 통신요청 uri 보낸다!!
+	try{
+		const resp = await fetch('/cmt/list/'+bindex);  // /cmt/list/140 보낼 uri
+		const cmtlist = await resp.json();   // out.print(jsonData)에서 받는다!
+		return cmtlist;
+	}catch(error){
+		console.log(error);
+	}
+}
+
+function spreadCommentList(result) { //댓글 list
+	console.log(result);
+   let div = document.getElementById("card bg-light");
+   div.innerHTML = '';
+   for (let i = 0; i < result.length; i++) {
+      let html = '<section class="mb-5">';
+      html += '<div class="card bg-light">';
+      html += ' <div class="card-body">';
+      html += '<div class="card bg-light">';
+      html += '<div class="card bg-light">';
+     
+      
+      div.innerHTML += html;
+      
+      
+      <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                <button type="button" id="cmtAddBtn" class="btn btn-primary">댓글등록</button>
+                                </form>
+                                
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4">
+                                    <!-- Parent comment-->
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">Commenter Name</div>
+                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </section>
+      }
+}
+
+
+
+
+
+async function postCommentToServer(cmtData){
+	try{
+		const url = "/CMT/post";
+		const config = {
+			method : 'post',
+			headers : {
+				'Content-Type' : 'application/json; charset=utf-8'
+			},
+			body : JSON.stringify(cmtData) // 존슨 스트링 타입으로 변환해서 보냄
+		};
+		const resp = await fetch(url,config);
+		const result = await resp.text(); // out.print(isOk)
+		return result;
+	}catch(error){
+		console.log(error);
+	}
+	
+}
+
+
+document.getElementById('cmtAddBtn').addEventListener('click',()=>{
+	const cmtText = document.getElementById('cmtText').value;
+	console.log(cmtText);
+	if(cmtText == null || cmtText == ''){
+		alert('댓글을 입력해주세요.');
+		return false;
+	}else{
+		let cmtData = {
+			bno : bnoval,
+			writer : document.getElementById('cmtWriter').value,
+			content : cmtText
+		};
+	};
+	
+	postCommentToServer(cmtData).then(result => {
+		if(result > 0){
+			alert("댓글 등록 성공");
+			document.getElementById('cmtText').value = "";  // 성공하면 지워라!
+		}
+		printCommentList(cmtData.bno);
+	})
+	
+	
+})

@@ -1,0 +1,13 @@
+package service;
+
+import domain.BoardVO;
+
+public class BserviceIm implements Bservice {
+
+	@Override
+	public int register(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		return insert(bvo);
+	}
+
+}

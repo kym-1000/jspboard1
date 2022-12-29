@@ -1,0 +1,41 @@
+package domain;
+
+public class memberVO {
+	
+	
+//	create table member(
+//			email varchar(50),
+//			pwd varchar(50),
+//			nick varchar(50),
+//			reg_at datetime default now(),
+//			last_login datetime,
+//			primary key(email));
+	
+	private String email;
+	private String pwd;
+	private String nick;
+	private String reg_at;
+	private String last_login;
+	
+	public memberVO() {} // 기본생성자 
+
+	public memberVO(String email, String pwd, String nick, String reg_at, String last_login) {
+		this.email = email;
+		this.pwd = pwd;
+		this.nick = nick;
+		this.reg_at = reg_at;
+		this.last_login = last_login;
+	}
+
+	public memberVO(String email, String pwd, String nick, String reg_at) {
+		this.email = email;
+		this.pwd = pwd;
+		this.nick = nick;
+		this.reg_at = reg_at;
+	}
+	
+	
+	
+	
+
+}

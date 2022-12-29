@@ -1,0 +1,15 @@
+
+게시판 테이블
+
+create table board(
+bno int auto_increment,
+title varchar(100),
+email varchar(50),
+pwd varchar(20),
+content text,
+cnt int,
+recommend int,
+regdate datetime default now(),
+primary key(bno));
+
+멤버 테이블

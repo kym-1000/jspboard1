@@ -1,0 +1,11 @@
+package repository;
+
+import domain.BoardVO;
+
+public interface BDAO {
+
+	int insert(BoardVO bvo);
+
+	
+
+}

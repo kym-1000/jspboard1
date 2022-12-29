@@ -1,0 +1,13 @@
+package repository;
+
+import domain.memberVO;
+
+public class MDAOim implements MDAO {
+
+	@Override
+	public int insert(memberVO mvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

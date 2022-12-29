@@ -1,0 +1,11 @@
+document.getElementById('delbtn').addEventListener('click',()=>{
+	const del = document.getElementById('delbtn').value;
+	const 
+	
+	var userInput = prompt("비밀번호를 입력해주세요");
+	let pwd = ${ses.pwd};
+	
+	if(userInput == pwd){
+		
+	}
+})

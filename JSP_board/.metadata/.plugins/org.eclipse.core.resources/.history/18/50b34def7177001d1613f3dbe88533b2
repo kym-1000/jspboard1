@@ -1,0 +1,21 @@
+package service;
+
+import domain.memberVO;
+import repository.MDAO;
+import repository.MDAOim;
+
+public class serviceIm implements service {
+	
+	private MDAO mdao; // 다오 인터페이스 생성 
+	
+	public serviceIm() {
+		mdao = new MDAOim();
+	}
+
+	@Override
+	public int Mregister(memberVO mvo) {
+		// TODO Auto-generated method stub
+		return mdao.insert(mvo);
+	}
+
+}

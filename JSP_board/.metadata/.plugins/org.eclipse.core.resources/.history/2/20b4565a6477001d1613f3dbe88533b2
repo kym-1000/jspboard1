@@ -1,0 +1,12 @@
+package orm;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+public class DatabaseBuilder {
+	
+	private static SqlSessionFactory factory;
+	// SQL 세션 팩토리 를 빌드 하기 위한 변수
+	
+	
+
+}

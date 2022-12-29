@@ -1,0 +1,14 @@
+package domain;
+
+public class memberVO {
+	
+	
+//	create table member(
+//			email varchar(50),
+//			pwd varchar(50),
+//			nick varchar(50),
+//			reg_at datetime default now(),
+//			last_login datetime,
+//			primary key(email));
+
+}
